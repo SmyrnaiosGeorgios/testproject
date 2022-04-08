@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% block title %}Home{% endblock title %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+
+{% block body %}
+<!-- Carousel -->
+<div id="car" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel">
+
+<!-- Indicators/dots -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#car" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#car" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#car" data-bs-slide-to="2"></button>
+    </div>
+
+<!-- The slideshow/carousel -->
+    <div class="carousel-inner">
+
+        <div class="carousel-item active">
+            <div class="d-flex justify-content-center">
+                <img src="/static/img/storeevent1.jpg" alt="Store Event" class="d-block" style="width:100%">
+            </div>
+        </div>
+
+        <div class="carousel-item">
+            <img src="/static/img/storeevent2.jpg" alt="Organized Play" class="d-block" style="width:100%">
+        </div>
+
+        <div class="carousel-item">
+            <img src="/static/img/storeevent3.jpg" alt="Yu-Gi-Oh Store Event" class="d-block" style="width:100%">
+        </div>
+
+    </div>
+
+<!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#car" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#car" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+
+            <h1 class="text-center my-5"><Strong>Welcome to TCGR!</Strong></h1>
+            <div class="row mx-2 text-justify">
+                <p>Here you can learn about our tournament hosting services as well as get any information you need on our partner stores and referee staff. </p>
+                <p>To learn more about our partner stores please click the stores link on the header. </p>
+                <hr>
+
+                <h4>In TCGR, we offer two different types of tournaments, depending on the shop that hosts.</h4>
+                <p>Free tournaments are free for anyone to enter and the first three places get as a prize five, three and two card packs of their choice respectively.</p>
+                <p>Paid Tournaments have a standard entry fee of 5€ per player but every participant gets to pick one random booster pack for a game of their choice, as long as the game is supported by the store. The first three places get as a prize five, three and two card packs respectively as well as a special playmat that changes every week.</p>
+            </div>
+        <hr>
+
+
+{% endblock %}

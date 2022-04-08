@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Referee Details{% endblock title %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+{% block body %}
+
+        <section id="referee_detail" class="pt-4">
+            <h1 class="text-center my-5"><Strong>Referee Information</Strong></h1>
+
+            <div class="row">
+                <div class="card border-dark mb-3 mx-auto" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/static/img/{{referee.avatar}}" class="img-fluid" alt="Referee Avatar">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title">{{referee.name}}, {{referee.lastname}}</h4>
+                            {% if referee.age %}
+                                <p class="card-text">Age: {{referee.age}}</p>
+                            {% endif %}
+                            {% if referee.gender %}
+                                <p class="card-text">Gender: {{referee.gender}}</p>
+                            {% endif %}
+                            <p class="card-text">
+                                <Strong>Licenced in:</Strong>
+                                <ul>
+                                    {% for game in referee.cardgames.all %}
+                                        <li>{{ game }}</li>
+                                    {% endfor %}
+                                <ul>
+                            </p>
+                            <form action= "{url 'like_referee' referee.id %}" method= "POST" class="d-flex justify-content-end">
+                                {% csrf_token %}
+                                <button type="submit" name="pk" value="{{ referee.id }}" class="btn btn-dark btn-sm">Like</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+<br>
+<hr>
+
+
+        </section>
+
+{% endblock %}

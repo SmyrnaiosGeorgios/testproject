@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{%load static%}
+{% block title %}About{% endblock title %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+{% block body %}
+<br>
+<br>
+            <h1 class="text-center my-5"><Strong>About Us</Strong></h1>
+            <img src="/static/img/TCGRLogo.png" class="rounded mx-auto d-block" alt="Company Logo" width="150">
+            <div class="row mx-2 text-justify">
+
+                <h3 class = "text-muted text-center">TCGR hosts and runs weekly card game tournaments all over Greece. Our goal is to spread the love of our favorite games to more people and help bring more players into the competitive side of card games.</h3>
+            </div>
+        <hr>
+
+
+
+{% endblock %}

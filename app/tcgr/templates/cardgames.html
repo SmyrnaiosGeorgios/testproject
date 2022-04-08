@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{%load static%}
+{% block title %}Cardgames{% endblock title %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+{% block body %}
+<br>
+
+        <section id="stores" class="pt-4">
+            <h1 class="text-center my-5"><Strong>Card Games</Strong></h1>
+            <h2 class = "text-muted text-center">Bellow you will find a list of all the different card games that our company supports and organizes tournaments for.</h2>
+            <hr>
+            <div class="row">
+             {% for cardgame in cardgames %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-dark mb-3">
+                        <div class="card-body text-secondary">
+                            <img src="/static/img/{{cardgame.logo}}" class="img-fluid" alt="Cardgame Logo">
+                            <h4 class="card-title"><Strong>{{cardgame.title}}</Strong></h4>
+                            <p class="card-text"> Published by: {{cardgame.publisher}}</p>
+                            <p class="card-text"> Released on: {{cardgame.releasedate}}</p>
+                            {% if cardgame.description%}
+                                <hr>
+                                <p>{{cardgame.description}}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </section>
+
+{% endblock %}

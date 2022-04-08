@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{%load static%}
+{% block title %}Partner Stores{% endblock title %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+{% block body %}
+<br>
+
+        <section id="stores" class="pt-4">
+            <h1 class="text-center my-5"><Strong>Partner Stores</Strong></h1>
+            <h2 class = "text-muted text-center">In order to organize our tournaments we have partnered with numerous game shops all around Greece that generously provide their spaces for the tournaments.</h2>
+            <h2 class = "text-muted text-center">Here you can get some additional information on these shops.</h2>
+            <hr>
+            <h3 class = "text-muted text-center">You can search for specific stores using the name, description or entry category (free/paid)</h3>
+            <div class="d-flex justify-content-center">
+                <form method="post" action="{% url 'store_search' %}" >
+                    {% csrf_token %}
+                    <input name="q" id="q" type="text"/>
+                    <button type="submit" class="btm btn-dark">Search Store</button>
+                </form>
+            </div>
+            <hr>
+            <div class="row">
+             {% for store in stores %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-dark mb-3">
+                        <div class="card-body text-secondary">
+                            <a href="{% url 'store_detail' store.id %}" class="link-dark">
+                                <h4 class="card-title">{{store.name}}</h4>
+                            </a>
+                            {% if store.description%}
+                                <p class="card-text">  {{store.description}}</p>
+                                <hr>
+                            {% endif %}
+                            {% if store.entry_fee %}
+                                <p>Tournament Entry: {{store.entry_fee}}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </section>
+
+{% endblock %}

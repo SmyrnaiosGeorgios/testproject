@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{%load static%}
+{% block title %}Referees{% endblock title %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+{% block body %}
+<br>
+
+        <section id="referees" class="pt-4">
+            <h1 class="text-center my-5"><Strong>Our Referees</Strong></h1>
+            <h2 class = "text-muted text-center">There can be no tournament without the watchful eye of an official referee.</h2>
+            <h2 class = "text-muted text-center">Here you can meet our team of licenced referees.</h2>
+            <hr>
+            <h3 class = "text-muted text-center">You can search for specific referees using a name, last name or gender</h3>
+            <div class="d-flex justify-content-center">
+                <form method="post" action="{% url 'referee_search' %}" >
+                    {% csrf_token %}
+                    <input name="q" id="q" type="text"/>
+                    <button type="submit" class="btm btn-dark">Search Referee</button>
+                </form>
+            </div>
+            <hr>
+            <div class="row">
+             {% for referee in refs %}
+                <div class="col-md-6 col-lg-3">
+                    <div class="card mb-3">
+                        <img class="card-img-top" src="/static/img/{{referee.avatar}}" alt="Referee Avatar">
+                        <div class="card-body">
+                            <a href="{% url 'referee_detail' referee.pk %}" class="link-dark">
+                                <h4 class="card-title">{{referee.name}} {{referee.lastname}}</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </section>
+
+{% endblock %}

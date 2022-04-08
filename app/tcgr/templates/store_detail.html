@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Store Details{% endblock title %}
+{% block js %}<script src="{% static 'main.js'%}" defer></script>{% endblock js %}
+{% block header %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tournament Categories</a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for item in categories %}
+                      <li><a class="dropdown-item" href="{%url 'category' item%}">{{item}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+{% endblock %}
+{% block body %}
+
+        <section id="store_detail" class="pt-4">
+            <h1 class="text-center my-5"><Strong>Store Information</Strong></h1>
+
+            <div class="row">
+                <div class="card border-dark mb-3 mx-auto" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-10">
+                        <img src="/static/img/{{store.photo}}" class="mx-auto" alt="Store photo" width="500">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title"><Strong>{{store.name}}</Strong></h4>
+                            <p class="card-text"> Adress: {{store.address}}, {{store.city}}</p>
+                            <p class="card-text">  {{store.description}}<hr>Tournament Entry: {{store.entry_fee}} </p>
+                            <p class="card-text"><Strong>Games Supported:</Strong></p>
+                            <ul>
+                                {% for game in store.supported_games.all %}
+                                    <li>{{ game }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% if user.is_staff %}
+                                <p class="card-text">Rate the Store</p>
+                                <form class="rate-form" action="" method="POST" id ="{{store.id}}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="fa fa-star my-btn" id="star1"></button>
+                                    <button type="submit" class="fa fa-star my-btn" id="star2"></button>
+                                    <button type="submit" class="fa fa-star my-btn" id="star3"></button>
+                                    <button type="submit" class="fa fa-star my-btn" id="star4"></button>
+                                    <button type="submit" class="fa fa-star my-btn" id="star5"></button>
+                                    <div id="confirm-rating"></div>
+                                </form>
+                                <br>
+                            {% endif %}
+                            <p class="card-text">Store Rating: {{store.score}}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+        </section>
+
+{% endblock %}
